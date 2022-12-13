@@ -20,11 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\domain\Domain.csproj" />
+    <Folder Include="Physics\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Physics\" />
+    <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
 
 </Project>

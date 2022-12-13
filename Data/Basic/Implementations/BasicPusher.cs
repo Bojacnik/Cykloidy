@@ -25,7 +25,7 @@ namespace Domain.Basic.Implementations
             foreach (Geometry g in geometries)
             {
                 if (g is Circle c)
-                    c.Push(pushValue);
+                    c.Push(pushValue, 0);
             }
         }
     }

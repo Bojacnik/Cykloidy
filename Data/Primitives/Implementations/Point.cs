@@ -12,9 +12,10 @@ namespace Domain.Primitives.Implementations
             this.coordinates = coordinates;
         }
 
-        public override void Push(double value)
+        public override void Push(double x, double y)
         {
-            coordinates.x += value;
+            coordinates.x += x;
+            coordinates.y += y;
         }
     }
 }

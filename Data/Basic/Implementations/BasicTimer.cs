@@ -1,17 +1,16 @@
-﻿using System;
-using System.Timers;
+﻿using System.Timers;
 using Domain.Basic.Interfaces;
 
 namespace Domain.Basic.Implementations
 {
     public class BasicTimer : IBasicTimer
     {
-        Timer tmr;
+        System.Timers.Timer tmr;
         Action act;
 
         public BasicTimer(double interval, Action action)
         {
-            tmr = new Timer();
+            tmr = new System.Timers.Timer();
             tmr.Interval = interval;
             act = action;
             tmr.Elapsed += (sender, e) =>

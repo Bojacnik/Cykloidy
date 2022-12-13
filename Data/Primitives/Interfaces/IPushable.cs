@@ -8,6 +8,6 @@ namespace Domain.Primitives.Interfaces
 {
     public interface IPushable
     {
-        public void Push(double value);
+        public void Push(double x, double y);
     }
 }
