@@ -1,4 +1,4 @@
-﻿using Data.Primitives.Implementations;
+﻿using Data.Basic.Implementations;
 
 namespace Data.Advanced.Implementations
 {

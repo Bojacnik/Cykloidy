@@ -1,4 +1,4 @@
-﻿namespace Data.Primitives.Interfaces
+﻿namespace Data.Basic.Abstractions.Interfaces
 {
     public interface IPushable
     {

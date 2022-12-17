@@ -1,8 +1,8 @@
-﻿using Data.Primitives.Interfaces;
+﻿using Data.Basic.Abstractions.Interfaces;
 
-namespace Data.Primitives.Implementations
+namespace Data.Basic.Implementations
 {
-    public struct Vector2 : IPushable
+    public struct Vector2 : IPushable, IEquatable<Vector2>
     {
         public double x;
         public double y;
@@ -19,6 +19,12 @@ namespace Data.Primitives.Implementations
         {
             this.x += x;
             this.y += y;
+        }
+
+        public bool Equals(Vector2 other)
+        {
+            if (x == other.x && y == other.y) return true;
+            return false;
         }
 
         public static Vector2 operator +(Vector2 first, Vector2 second)

@@ -1,6 +1,6 @@
-﻿using Data.Primitives.Abstractions;
+﻿using Data.Basic.Abstractions.Classes;
 
-namespace Data.Primitives.Implementations
+namespace Data.Basic.Implementations
 {
     public class Circle : Geometry
     {
@@ -9,14 +9,14 @@ namespace Data.Primitives.Implementations
 
         public Circle(Vector2 center, double radius)
         {
-            this.Center = center;
-            this.Radius = radius;
+            Center = center;
+            Radius = radius;
         }
 
         public override void Push(double x, double y)
         {
-            this.Center.x += x;
-            this.Center.y += y;
+            Center.x += x;
+            Center.y += y;
         }
     }
 }

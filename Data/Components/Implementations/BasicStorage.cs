@@ -1,7 +1,7 @@
-﻿using Data.Basic.Interfaces;
-using Data.Primitives.Abstractions;
+﻿using Data.Basic.Abstractions.Classes;
+using Data.Components.Interfaces;
 
-namespace Data.Basic.Implementations
+namespace Data.Components.Implementations
 {
     public class BasicStorage : IBasicStorage
     {

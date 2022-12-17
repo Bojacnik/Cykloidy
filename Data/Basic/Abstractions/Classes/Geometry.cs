@@ -1,6 +1,6 @@
-﻿using Data.Primitives.Interfaces;
+﻿using Data.Basic.Abstractions.Interfaces;
 
-namespace Data.Primitives.Abstractions
+namespace Data.Basic.Abstractions.Classes
 {
     abstract public class Geometry : IPushable
     {

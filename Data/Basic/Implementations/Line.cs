@@ -1,6 +1,6 @@
-﻿using Data.Primitives.Abstractions;
+﻿using Data.Basic.Abstractions.Classes;
 
-namespace Data.Primitives.Implementations
+namespace Data.Basic.Implementations
 {
     public class Line : Geometry
     {
@@ -9,18 +9,18 @@ namespace Data.Primitives.Implementations
 
         public Line(Vector2 start, Vector2 end)
         {
-            this.PointStart = start;
-            this.PointEnd = end;
+            PointStart = start;
+            PointEnd = end;
         }
 
         public override void Push(double x, double y)
         {
             //Update X
-            this.PointStart.x += x;
-            this.PointEnd.x += x;
+            PointStart.x += x;
+            PointEnd.x += x;
             //Update Y
-            this.PointStart.y += y;
-            this.PointEnd.y += y;
+            PointStart.y += y;
+            PointEnd.y += y;
         }
     }
 }

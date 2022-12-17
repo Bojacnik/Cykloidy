@@ -1,5 +1,5 @@
 ﻿using System;
-using Domain.Primitives.Implementations;
+using Data.Basic.Implementations;
 
 namespace Domain.UnitTests.Primitives
 {
