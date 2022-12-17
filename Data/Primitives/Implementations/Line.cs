@@ -8,9 +8,8 @@ namespace Domain.Primitives.Implementations
         public Vector2 PointStart;
         public Vector2 PointEnd;
 
-        public Line(Guid Id, Vector2 start, Vector2 end)
+        public Line(Vector2 start, Vector2 end)
         {
-            this.Id = Id;
             this.PointStart = start;
             this.PointEnd = end;
         }
