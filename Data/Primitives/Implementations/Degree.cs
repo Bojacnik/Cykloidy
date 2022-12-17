@@ -1,4 +1,4 @@
-﻿namespace Domain.Primitives.Implementations
+﻿namespace Data.Primitives.Implementations
 {
     public struct Degree
     {

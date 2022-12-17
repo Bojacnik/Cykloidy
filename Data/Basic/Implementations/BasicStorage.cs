@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using Domain.Basic.Interfaces;
-using Domain.Primitives.Abstractions;
+﻿using Data.Basic.Interfaces;
+using Data.Primitives.Abstractions;
 
-namespace Domain.Basic.Implementations
+namespace Data.Basic.Implementations
 {
     public class BasicStorage : IBasicStorage
     {
-        public readonly List<Geometry> geometries = new List<Geometry>();
+        public readonly List<Geometry> geometries;
+
+        public BasicStorage()
+        {
+            geometries = new List<Geometry>();
+        }
 
         public void AddGeometry(Geometry geometry)
         {

@@ -1,7 +1,6 @@
-﻿using Domain.Primitives.Abstractions;
-using System;
+﻿using Data.Primitives.Abstractions;
 
-namespace Domain.Primitives.Implementations
+namespace Data.Primitives.Implementations
 {
     public class Line : Geometry
     {

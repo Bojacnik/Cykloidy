@@ -1,8 +1,6 @@
-﻿using Domain.Primitives.Abstractions;
-using Domain.Primitives.Interfaces;
-using System;
+﻿using Data.Primitives.Abstractions;
 
-namespace Domain.Primitives.Implementations
+namespace Data.Primitives.Implementations
 {
     public class Circle : Geometry
     {

@@ -1,6 +1,6 @@
-﻿using Domain.Primitives.Interfaces;
+﻿using Data.Primitives.Interfaces;
 
-namespace Domain.Primitives.Implementations
+namespace Data.Primitives.Implementations
 {
     public struct Vector2 : IPushable
     {

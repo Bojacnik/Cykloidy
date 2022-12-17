@@ -1,5 +1,5 @@
 ﻿using Data.Advanced.Implementations;
-using Domain.Primitives.Implementations;
+using Data.Primitives.Implementations;
 
 namespace Data.Simulation
 {

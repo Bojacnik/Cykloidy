@@ -1,6 +1,6 @@
-﻿using Domain.Primitives.Abstractions;
+﻿using Data.Primitives.Abstractions;
 
-namespace Domain.Basic.Interfaces
+namespace Data.Basic.Interfaces
 {
     public interface IBasicStorage
     {

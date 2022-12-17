@@ -1,23 +1,21 @@
-﻿using Domain.Basic.Interfaces;
-using Domain.Primitives.Abstractions;
-using Domain.Primitives.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Basic.Interfaces;
+using Data.Primitives.Abstractions;
+using Data.Primitives.Implementations;
 
-namespace Domain.Basic.Implementations
+namespace Data.Basic.Implementations
 {
     public class BasicPusher : IBasicPusher
     {
         List<Geometry> geometries;
-        double pushValue;
+        public double PushValue
+        {
+            get; init;
+        }
 
         public BasicPusher(List<Geometry> geometries, double pushvalue)
         {
             this.geometries = geometries;
-            pushValue = pushvalue;
+            PushValue = pushvalue;
         }
 
         public void Step()
@@ -25,7 +23,7 @@ namespace Domain.Basic.Implementations
             foreach (Geometry g in geometries)
             {
                 if (g is Circle c)
-                    c.Push(pushValue, 0);
+                    c.Push(PushValue, 0);
             }
         }
     }

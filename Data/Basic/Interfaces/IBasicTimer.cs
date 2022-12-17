@@ -1,4 +1,4 @@
-﻿namespace Domain.Basic.Interfaces
+﻿namespace Data.Basic.Interfaces
 {
     public interface IBasicTimer
     {
