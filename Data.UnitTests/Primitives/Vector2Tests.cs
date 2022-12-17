@@ -1,6 +1,6 @@
 ﻿using Data.Basic.Implementations;
 
-namespace Domain.UnitTests.Primitives
+namespace Data.UnitTests.Primitives
 {
     public class Vector2Tests
     {
