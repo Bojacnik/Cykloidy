@@ -1,6 +1,6 @@
 ﻿using Data.Basic.Abstractions.Classes;
 using Data.Basic.Implementations;
-using Data.Components.Interfaces;
+using Data.Components.Abstractions.Interfaces;
 
 namespace Data.Components.Implementations
 {

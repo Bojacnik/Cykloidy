@@ -1,5 +1,5 @@
-﻿using System;
-using Data.Basic.Implementations;
+﻿using Data.Basic.Implementations;
+using System;
 
 namespace Data.UnitTests.Primitives
 {

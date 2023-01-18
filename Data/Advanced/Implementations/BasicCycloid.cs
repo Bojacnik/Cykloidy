@@ -23,5 +23,10 @@ namespace Data.Advanced.Implementations
             this.point.coordinates.x = a * (t - Math.Sin(t));
             this.point.coordinates.y = a * (1 - Math.Cos(t));
         }
+
+        public Vector2 GetCoordinates()
+        {
+            return point.coordinates;
+        }
     }
 }

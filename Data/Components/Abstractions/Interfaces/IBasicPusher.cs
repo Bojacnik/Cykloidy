@@ -1,4 +1,4 @@
-﻿namespace Data.Components.Interfaces
+﻿namespace Data.Components.Abstractions.Interfaces
 {
     public interface IBasicPusher
     {

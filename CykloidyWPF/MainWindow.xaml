@@ -11,28 +11,33 @@
 
     <Grid Background="White" HorizontalAlignment="Stretch" FlowDirection="LeftToRight">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Canvas x:Name="DrawingCanvas"  Grid.Column="0" Grid.Row="0" Background="LightGray">
             <Canvas.LayoutTransform>
-                <ScaleTransform ScaleX="1" ScaleY="-1" CenterX=".5" CenterY=".5"/>
+                <ScaleTransform ScaleX="1" ScaleY="-1"/>
             </Canvas.LayoutTransform>
         </Canvas>
-        <StackPanel Grid.Column="1" Grid.Row="0" Background="Blue" Orientation="Vertical">
+        <StackPanel Grid.Column="1" Grid.Row="0" Background="BlanchedAlmond" Orientation="Vertical">
             <TextBlock HorizontalAlignment="Stretch">X</TextBlock>
-            <TextBox Name="tbX"></TextBox>
+            <TextBox  Name="tbX">50</TextBox>
             <TextBlock Margin="1,10,1,1">Y</TextBlock>
-            <TextBox Name="tbY"></TextBox>
-            <TextBlock HorizontalAlignment="Center">Width</TextBlock>
-            <TextBox Name="tbWidth"></TextBox>
-            <TextBlock HorizontalAlignment="Center">Height</TextBlock>
-            <TextBox Name="tbHeight"></TextBox>
-            <TextBlock HorizontalAlignment="Center">Thickness</TextBlock>
-            <TextBox Name="tbThickness"></TextBox>
-            <Button Name="btnCreate" Margin="1,10,1,1">Create</Button>
-            <Button Name="btnRun" Margin="1,2,1,1">Run</Button>
+            <TextBox Name="tbY">50</TextBox>
+            <TextBlock HorizontalAlignment="Center">Radius</TextBlock>
+            <TextBox Name="tbRadius">20</TextBox>
+            <TextBlock HorizontalAlignment="Center">pointX</TextBlock>
+            <TextBox Name="tbPointX">30</TextBox>
+            <TextBlock HorizontalAlignment="Center">pointY</TextBlock>
+            <TextBox Name="tbPointY">50</TextBox>
+            <TextBlock HorizontalAlignment="Center">offset</TextBlock>
+            <TextBox Name="tbOffset">0</TextBox>
+            <TextBlock HorizontalAlignment="Center">angle</TextBlock>
+            <TextBox Name="tbAngle">0</TextBox>
+            
+            <Button Name="btnCreate" Margin="1,10,1,1" Click="btnCreate_onClick">Create</Button>
+            <Button Name="btnRun" Margin="1,2,1,1" Click="btnRun_onClick" IsEnabled="False">Run</Button>
         </StackPanel>
     </Grid>
 

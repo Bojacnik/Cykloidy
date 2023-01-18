@@ -1,6 +1,6 @@
 ﻿using Data.Basic.Abstractions.Classes;
 
-namespace Data.Components.Interfaces
+namespace Data.Components.Abstractions.Interfaces
 {
     public interface IBasicStorage
     {
