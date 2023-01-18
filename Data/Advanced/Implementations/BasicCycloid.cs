@@ -1,4 +1,4 @@
-﻿using Domain.Primitives.Implementations;
+﻿using Data.Basic.Implementations;
 
 namespace Data.Advanced.Implementations
 {
@@ -22,6 +22,11 @@ namespace Data.Advanced.Implementations
             circle.Push(pushX, pushY);
             this.point.coordinates.x = a * (t - Math.Sin(t));
             this.point.coordinates.y = a * (1 - Math.Cos(t));
+        }
+
+        public Vector2 GetCoordinates()
+        {
+            return point.coordinates;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Domain.Primitives.Implementations
+﻿namespace Data.Basic.Implementations
 {
-    public struct Degree
+    public struct Degree : IEquatable<Degree>
     {
         int degrees;
         public Degree(int degrees)
@@ -32,6 +32,12 @@
                 }
                 return degrees;
             }
+        }
+
+        public bool Equals(Degree other)
+        {
+            if (this.degrees == other.degrees) return true;
+            return false;
         }
 
         public static Degree operator +(Degree first, Degree second)

@@ -1,7 +1,6 @@
-﻿using System.Timers;
-using Domain.Basic.Interfaces;
+﻿using Data.Components.Abstractions.Interfaces;
 
-namespace Domain.Basic.Implementations
+namespace Data.Components.Implementations
 {
     public class BasicTimer : IBasicTimer
     {

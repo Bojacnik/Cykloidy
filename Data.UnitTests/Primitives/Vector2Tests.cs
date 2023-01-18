@@ -1,13 +1,12 @@
-﻿using Data.
+﻿using Data.Basic.Implementations;
 
-namespace Domain.UnitTests.Primitives
+namespace Data.UnitTests.Primitives
 {
     public class Vector2Tests
     {
         Vector2 vector;
         Vector2 vector2;
         int x, y; //used to control Vector2 constructors
-        int toVector; //used for adding, subtracting, multiplying and dividing vectors
 
         [SetUp]
         public void Setup()
@@ -16,7 +15,6 @@ namespace Domain.UnitTests.Primitives
             vector2 = new Vector2(10, 20);
             x = 9;
             y = 18;
-            toVector = 5;
         }
 
         //Testing Vector2 constructor

@@ -1,7 +1,6 @@
-﻿using Domain.Primitives.Abstractions;
+﻿using Data.Basic.Abstractions.Classes;
 
-
-namespace Domain.Primitives.Implementations
+namespace Data.Basic.Implementations
 {
     public class Point : Geometry
     {

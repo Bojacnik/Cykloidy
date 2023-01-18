@@ -1,7 +1,6 @@
-﻿using Domain.Primitives.Interfaces;
-using System;
+﻿using Data.Basic.Abstractions.Interfaces;
 
-namespace Domain.Primitives.Abstractions
+namespace Data.Basic.Abstractions.Classes
 {
     abstract public class Geometry : IPushable
     {

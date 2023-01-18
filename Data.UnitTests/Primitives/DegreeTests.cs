@@ -1,7 +1,7 @@
-﻿using System;
-using Domain.Primitives.Implementations;
+﻿using Data.Basic.Implementations;
+using System;
 
-namespace Domain.UnitTests.Primitives
+namespace Data.UnitTests.Primitives
 {
     public class DegreeTests
     {
