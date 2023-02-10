@@ -1,5 +1,7 @@
 ﻿using CykloidyWPF;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,77 +18,49 @@ namespace WpfApp1
         {
             InitializeComponent();
             this.canvas = DrawingCanvas;
-
         }
 
         DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Render);
-        Ellipse ellipse;
-        int radius;
-        double obvod;
-        double angleStep;
-        double angle = 0;
-        Ellipse point;
 
-        int pointX;
-        int pointY;
+
 
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
-            if (ellipse is not null)
-                canvas.Children.Clear();
+            List<PointD> list = SpocitejBodyNaCykloide();
 
-            radius = Convert.ToInt32(tbRadius.Text);
-            int x = Convert.ToInt32(tbX.Text);
-            int y = Convert.ToInt32(tbY.Text);
-
-            pointX = Convert.ToInt32(tbPointX.Text);
-            pointY = Convert.ToInt32(tbPointY.Text);
-
-            ellipse = createPoint(x, y, radius, Brushes.Black, Brushes.BlueViolet);
-            obvod = 2 * Math.PI * radius;
-            angleStep = 360 / obvod;
-
-            point = createPoint(pointX, pointY, 5, null, null);
-
-            canvas.Children.Add(ellipse);
-            canvas.Children.Add(point);
-            btnRun.IsEnabled = true;
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                PointD p = list[i];
+                canvas.Children.Add(createPoint(p.X + 10 * i, p.Y, 5, Brushes.Red, Brushes.Black));
+            }
         }
-
-        SimpleCycloid sc;
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {
-            sc ??= new SimpleCycloid(radius, pointX, pointY);
 
-            btnCreate.IsEnabled = false;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(5);
-            gameTimer.Tick += new EventHandler((object? sender, EventArgs e) =>
+        }
+        private List<PointD> SpocitejBodyNaCykloide()
+        {
+            List<PointD> points = new List<PointD>();
+
+            double step = 360 / canvas.ActualWidth;
+            uint stepsTaken = 0;
+            btnRun.IsEnabled = true;
+
+            double a = Convert.ToDouble(tbRadius.Text);
+            double x, y;
+
+            while (stepsTaken < 360)
             {
-                if (IsUserVisible(ellipse, this))
-                {
-                    var transform = ellipse.RenderTransform as TranslateTransform ?? new TranslateTransform();
-                    transform.X += 1;
-                    ellipse.RenderTransform = transform;
-                    
-                    var transform2 = point.RenderTransform as TranslateTransform ?? new TranslateTransform();
+                x = step * a * ((stepsTaken / 100) - Math.Sin(stepsTaken));
+                y = step * a * (1 - Math.Cos(stepsTaken));
+                points.Add(new PointD(x, y));
+                stepsTaken++;
+            }
 
-                    sc.Calculate();
-                    transform2.X = sc.x;
-                    transform2.Y = sc.y;
-                    point.RenderTransform = transform2;
-                }
-                else
-                {
-                    gameTimer.Stop();
-                    btnCreate.IsEnabled = true;
-                }
-            });
-            gameTimer.Start();
-
-            btnRun.IsEnabled = false;
+            return points;
         }
 
-        private Ellipse createPoint(int x, int y, int radius, Brush? stroke, Brush? fill)
+        private Ellipse createPoint(double x, double y, double radius, Brush? stroke, Brush? fill)
         {
             stroke ??= Brushes.Red;
             fill ??= Brushes.Red;
@@ -94,7 +68,7 @@ namespace WpfApp1
             {
                 Width = radius * 2,
                 Height = radius * 2,
-                StrokeThickness = 3,
+                StrokeThickness = 1,
                 Stroke = stroke,
                 Fill = fill,
             };

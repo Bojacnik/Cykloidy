@@ -17,7 +17,7 @@ namespace CykloidyWPF
 
         public void Calculate()
         {
-            x = r * (t - Math.Sin(t) + 30);
+            x = r * (t / 100 - Math.Sin(t) + 30);
             y = r * (1 - Math.Cos(t)) + 50;
         }
     }
