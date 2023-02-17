@@ -1,7 +1,4 @@
-﻿using CykloidyWPF;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,72 +10,117 @@ namespace WpfApp1
 
     public partial class MainWindow : Window
     {
-        Canvas canvas;
+        readonly Canvas canvas;
         public MainWindow()
         {
             InitializeComponent();
             this.canvas = DrawingCanvas;
         }
 
-        DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Render);
+        DispatcherTimer? gameTimer;
+        int xOffset, yOffset;
+        double radius;
+        double radiusC;
+        double angle;
+        double angleDifference;
+        double strokeThickness;
 
-
+        TranslateTransform tt;
+        TranslateTransform tc;
+        Line lajn;
 
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
-            List<PointD> list = SpocitejBodyNaCykloide();
-
-            for (int i = 0; i < list.Count - 1; i++)
+            ConvertValues();
+            tt = new()
             {
-                PointD p = list[i];
-                canvas.Children.Add(createPoint(p.X + 10 * i, p.Y, 5, Brushes.Red, Brushes.Black));
-            }
-        }
-        private void btnRun_onClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private List<PointD> SpocitejBodyNaCykloide()
-        {
-            List<PointD> points = new List<PointD>();
-
-            double step = 360 / canvas.ActualWidth;
-            uint stepsTaken = 0;
-            btnRun.IsEnabled = true;
-
-            double a = Convert.ToDouble(tbRadius.Text);
-            double x, y;
-
-            while (stepsTaken < 360)
-            {
-                x = step * a * ((stepsTaken / 100) - Math.Sin(stepsTaken));
-                y = step * a * (1 - Math.Cos(stepsTaken));
-                points.Add(new PointD(x, y));
-                stepsTaken++;
-            }
-
-            return points;
-        }
-
-        private Ellipse createPoint(double x, double y, double radius, Brush? stroke, Brush? fill)
-        {
-            stroke ??= Brushes.Red;
-            fill ??= Brushes.Red;
-            Ellipse el = new()
+                X = xOffset - radius,
+                Y = yOffset - radius,
+            };
+            Ellipse ell = new()
             {
                 Width = radius * 2,
                 Height = radius * 2,
-                StrokeThickness = 1,
-                Stroke = stroke,
-                Fill = fill,
+                Stroke = Brushes.DarkMagenta,
+                RenderTransform = tt,
+                StrokeThickness = strokeThickness,
             };
-            var transform = el.RenderTransform as TranslateTransform ?? new TranslateTransform();
-            transform.X = x - radius;
-            transform.Y = y - radius;
-            el.RenderTransform = transform;
-            return el;
+            canvas.Children.Add(ell);
+            tc = new()
+            {
+                X = xOffset - radiusC + Math.Cos(angle) * radius,
+                Y = yOffset - radiusC + Math.Sin(angle) * radius,
+            };
+            Ellipse cyc = new()
+            {
+                Width = radiusC * 2,
+                Height = radiusC * 2,
+                Stroke = Brushes.Red,
+                RenderTransform = tc,
+                StrokeThickness = strokeThickness / 2,
+            };
+            canvas.Children.Add(cyc);
+            lajn = new()
+            {
+                X1 = xOffset,
+                Y1 = yOffset,
+
+                X2 = tc.X + radiusC,
+                Y2 = tc.Y + radiusC,
+
+                Stroke = Brushes.Orange,
+
+            };
+            canvas.Children.Add(lajn);
+
+            btnCreate.IsEnabled = false;
+            btnRun.IsEnabled = true;
+            btnClear.IsEnabled = true;
         }
-        private bool IsUserVisible(FrameworkElement element, FrameworkElement container)
+        private void btnRun_onClick(object sender, RoutedEventArgs e)
+        {
+            gameTimer = new DispatcherTimer(DispatcherPriority.Render);
+            gameTimer.Tick += (object? sender, EventArgs e) =>
+            {
+                angle += angleDifference;
+                tt.X = xOffset - radius + angle * angleDifference;
+
+                tc.X = xOffset - radiusC + Math.Cos(angle) * radius + angle * angleDifference;
+                tc.Y = yOffset - radiusC + Math.Sin(angle) * radius;
+
+                lajn.X1 = tt.X + radius;
+                lajn.Y1 = tt.Y + radius;
+
+                lajn.X2 = tc.X + radiusC;
+                lajn.Y2 = tc.Y + radiusC;
+            };
+            gameTimer.Interval = TimeSpan.FromMilliseconds(2);
+            gameTimer.Start();
+            btnCreate.IsEnabled = false;
+            btnRun.IsEnabled = false;
+            btnClear.IsEnabled = true;
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            gameTimer?.Stop();
+            canvas.Children.Clear();
+            btnCreate.IsEnabled = true;
+            btnRun.IsEnabled = false;
+            btnClear.IsEnabled = false;
+        }
+
+        private void ConvertValues()
+        {
+            xOffset = Convert.ToInt32(tbX.Text);
+            yOffset = Convert.ToInt32(tbY.Text);
+            radius = Convert.ToDouble(tbRadius.Text);
+            radiusC = Convert.ToDouble(tbRadiusC.Text);
+            angle = Convert.ToDouble(tbAngle.Text);
+            angleDifference = Convert.ToDouble(tbAngleDiff.Text);
+            strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
+        }
+        private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
             if (!element.IsVisible)
                 return false;

@@ -20,25 +20,52 @@
                 <ScaleTransform ScaleX="1" ScaleY="-1"/>
             </Canvas.LayoutTransform>
         </Canvas>
-        <StackPanel Grid.Column="1" Grid.Row="0" Background="BlanchedAlmond" Orientation="Vertical">
-            <TextBlock HorizontalAlignment="Stretch">X</TextBlock>
-            <TextBox  Name="tbX">50</TextBox>
-            <TextBlock Margin="1,10,1,1">Y</TextBlock>
-            <TextBox Name="tbY">50</TextBox>
-            <TextBlock HorizontalAlignment="Center">Radius</TextBlock>
-            <TextBox Name="tbRadius">20</TextBox>
-            <TextBlock HorizontalAlignment="Center">pointX</TextBlock>
-            <TextBox Name="tbPointX">30</TextBox>
-            <TextBlock HorizontalAlignment="Center">pointY</TextBlock>
-            <TextBox Name="tbPointY">50</TextBox>
-            <TextBlock HorizontalAlignment="Center">offset</TextBlock>
-            <TextBox Name="tbOffset">0</TextBox>
-            <TextBlock HorizontalAlignment="Center">angle</TextBlock>
-            <TextBox Name="tbAngle">0</TextBox>
-            
-            <Button Name="btnCreate" Margin="1,10,1,1" Click="btnCreate_onClick">Create</Button>
-            <Button Name="btnRun" Margin="1,2,1,1" Click="btnRun_onClick" IsEnabled="False">Run</Button>
-        </StackPanel>
+        <Grid Grid.Column="1" Grid.Row="0" Background="Beige">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="30"/>
+                <RowDefinition Height="1*" MaxHeight="60"/>
+                <RowDefinition Height="1*" MaxHeight="60"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch">X</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="0" Name="tbX">50</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="1,10,1,1">Y</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="tbY">50</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">Radius</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="2" Name="tbRadius">20</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">RadiusC</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="3" Name="tbRadiusC">5</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center">pointX</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="4" Name="tbPointX">50</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center">pointY</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="5" Name="tbPointY">50</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center">offset</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="6" Name="tbOffset">0</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center">angle</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="7" Name="tbAngle">0</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="8" HorizontalAlignment="Center">angle diff</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="8" Name="tbAngleDiff">1</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="9" HorizontalAlignment="Center">stroke</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="9" Name="tbStrokeThickness">3</TextBox>
+
+            <Button Grid.Column="0" Grid.Row="10" Name="btnCreate" Click="btnCreate_onClick" IsEnabled="True">Create</Button>
+            <Button Grid.Column="1" Grid.Row="10" Name="btnRun" Click="btnRun_onClick" IsEnabled="True">Run</Button>
+            <Button Grid.Column="1" Grid.Row="11" Name="btnClear" Click="btnClear_Click" IsEnabled="True">Clear</Button>
+        </Grid>
+
     </Grid>
 
 </Window>
