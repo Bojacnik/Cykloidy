@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,20 +15,30 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            this.cbCykloidy.SelectedValuePath = "Key";
+            this.cbCykloidy.DisplayMemberPath = "Value";
+            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(0, "Základní cykloida"));
+            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(1, "Epicykloida"));
+            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(2, "Další cykloida"));
+            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(3, "Další cykloida"));
+            this.cbCykloidy.SelectedIndex = 0;
             this.canvas = DrawingCanvas;
         }
 
         DispatcherTimer? gameTimer;
         int xOffset, yOffset;
+        double cxOffset, cyOffset;
         double radius;
         double radiusC;
         double angle;
         double angleDifference;
         double strokeThickness;
+        Brush circleColor;
+        Brush cycloidColor;
 
-        TranslateTransform tt;
-        TranslateTransform tc;
-        Line lajn;
+        TranslateTransform? tt;
+        TranslateTransform? tc;
+        Line? lajn;
 
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
@@ -48,8 +59,8 @@ namespace WpfApp1
             canvas.Children.Add(ell);
             tc = new()
             {
-                X = xOffset - radiusC + Math.Cos(angle) * radius,
-                Y = yOffset - radiusC + Math.Sin(angle) * radius,
+                X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset),
+                Y = yOffset - radiusC + Math.Sin(angle) * (radius + cyOffset),
             };
             Ellipse cyc = new()
             {
@@ -83,10 +94,10 @@ namespace WpfApp1
             gameTimer.Tick += (object? sender, EventArgs e) =>
             {
                 angle += angleDifference;
-                tt.X = xOffset - radius + angle * angleDifference;
+                tt.X = xOffset - radius + angle * radius;
 
-                tc.X = xOffset - radiusC + Math.Cos(angle) * radius + angle * angleDifference;
-                tc.Y = yOffset - radiusC + Math.Sin(angle) * radius;
+                tc.X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset) + angle * radius;
+                tc.Y = yOffset - radiusC + Math.Sin(-angle) * (radius + cyOffset);
 
                 lajn.X1 = tt.X + radius;
                 lajn.Y1 = tt.Y + radius;
@@ -119,6 +130,8 @@ namespace WpfApp1
             angle = Convert.ToDouble(tbAngle.Text);
             angleDifference = Convert.ToDouble(tbAngleDiff.Text);
             strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
+            cxOffset = Convert.ToInt32(tbPointX.Text);
+            cyOffset = Convert.ToInt32(tbPointY.Text);
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
