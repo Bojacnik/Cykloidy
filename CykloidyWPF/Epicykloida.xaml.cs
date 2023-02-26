@@ -9,19 +9,12 @@ using System.Windows.Threading;
 namespace WpfApp1
 {
 
-    public partial class MainWindow : Window
+    public partial class Epicykloida : Window
     {
         readonly Canvas canvas;
-        public MainWindow()
+        public Epicykloida()
         {
             InitializeComponent();
-            this.cbCykloidy.SelectedValuePath = "Key";
-            this.cbCykloidy.DisplayMemberPath = "Value";
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(0, "Základní cykloida"));
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(1, "Epicykloida"));
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(2, "Další cykloida"));
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(3, "Další cykloida"));
-            this.cbCykloidy.SelectedIndex = 0;
             this.canvas = DrawingCanvas;
         }
 
@@ -33,9 +26,12 @@ namespace WpfApp1
         double angle;
         double angleDifference;
         double strokeThickness;
+        double baseRadius;
+        double baseX, baseY;
         Brush circleColor;
         Brush cycloidColor;
 
+        TranslateTransform? tbase;
         TranslateTransform? tt;
         TranslateTransform? tc;
         Line? lajn;
@@ -43,10 +39,26 @@ namespace WpfApp1
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
             ConvertValues();
+
+            tbase = new()
+            {
+                X = baseX - baseRadius,
+                Y = baseY - baseRadius,
+            };
+            Ellipse baseEl = new()
+            {
+                Width = baseRadius * 2,
+                Height = baseRadius * 2,
+                Stroke = Brushes.DarkBlue,
+                RenderTransform = tbase,
+                StrokeThickness = strokeThickness,
+            };
+            canvas.Children.Add(baseEl);
+
             tt = new()
             {
-                X = xOffset - radius,
-                Y = yOffset - radius,
+                X = baseX + baseRadius,
+                Y = baseY - baseRadius + radius + strokeThickness,
             };
             Ellipse ell = new()
             {
@@ -59,8 +71,8 @@ namespace WpfApp1
             canvas.Children.Add(ell);
             tc = new()
             {
-                X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset),
-                Y = yOffset - radiusC + Math.Sin(angle) * (radius + cyOffset),
+                X = tt.X - radiusC + Math.Cos(angle) * (radius + cxOffset),
+                Y = tt.Y + radiusC + Math.Sin(-angle) * (radius + cyOffset),
             };
             cyc = new()
             {
@@ -142,6 +154,9 @@ namespace WpfApp1
             strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
             cxOffset = Convert.ToInt32(tbPointX.Text);
             cyOffset = Convert.ToInt32(tbPointY.Text);
+            baseRadius = Convert.ToInt32(tbBaseRadius.Text);
+            baseX = Convert.ToInt32(tbBaseX.Text);
+            baseY = Convert.ToInt32(tbBaseY.Text);
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
