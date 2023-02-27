@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CykloidyWPF;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,26 +16,13 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            this.cbCykloidy.SelectedValuePath = "Key";
-            this.cbCykloidy.DisplayMemberPath = "Value";
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(0, "Základní cykloida"));
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(1, "Epicykloida"));
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(2, "Další cykloida"));
-            this.cbCykloidy.Items.Add(new KeyValuePair<int, string>(3, "Další cykloida"));
-            this.cbCykloidy.SelectedIndex = 0;
             this.canvas = DrawingCanvas;
         }
 
         DispatcherTimer? gameTimer;
-        int xOffset, yOffset;
-        double cxOffset, cyOffset;
-        double radius;
-        double radiusC;
-        double angle;
-        double angleDifference;
-        double strokeThickness;
-        Brush circleColor;
-        Brush cycloidColor;
+
+        CycloidCircle circle;
+        CycloidCircle cycloid;
 
         TranslateTransform? tt;
         TranslateTransform? tc;
@@ -45,45 +33,46 @@ namespace WpfApp1
             ConvertValues();
             tt = new()
             {
-                X = xOffset - radius,
-                Y = yOffset - radius,
+                X = circle.X,
+                Y = circle.Y,
             };
             Ellipse ell = new()
             {
-                Width = radius * 2,
-                Height = radius * 2,
-                Stroke = Brushes.DarkMagenta,
+                Width = circle.Width,
+                Height = circle.Height,
+                Fill = circle.FillBrush,
+                Stroke = circle.StrokeBrush,
+                StrokeThickness = circle.StrokeThickness,
                 RenderTransform = tt,
-                StrokeThickness = strokeThickness,
             };
             canvas.Children.Add(ell);
             tc = new()
             {
-                X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset),
-                Y = yOffset - radiusC + Math.Sin(angle) * (radius + cyOffset),
+                X = cycloid.X,
+                Y = cycloid.Y,
             };
             cyc = new()
             {
-                Width = radiusC * 2,
-                Height = radiusC * 2,
-                Stroke = Brushes.Red,
+                Width = cycloid.Width,
+                Height = cycloid.Height,
+                Fill = cycloid.FillBrush,
+                Stroke = cycloid.StrokeBrush,
+                StrokeThickness = cycloid.StrokeThickness,
                 RenderTransform = tc,
-                StrokeThickness = strokeThickness / 2,
             };
             canvas.Children.Add(cyc);
             lajn = new()
             {
-                X1 = xOffset,
-                Y1 = yOffset,
+                X1 = circle.xOffset,
+                Y1 = circle.yOffset,
 
-                X2 = tc.X + radiusC,
-                Y2 = tc.Y + radiusC,
+                X2 = tc.X + cycloid.Radius,
+                Y2 = tc.Y + cycloid.Radius,
 
                 Stroke = Brushes.Orange,
 
             };
             canvas.Children.Add(lajn);
-
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = true;
             btnClear.IsEnabled = true;
@@ -95,25 +84,26 @@ namespace WpfApp1
             {
                 canvas.Children.Add(new Ellipse()
                 {
-                    Width = cyc.Width,
-                    Height = cyc.Height,
-                    Stroke = cyc.Stroke,
-                    Fill = cyc.Fill ?? cyc.Stroke,
+                    Width = cycloid.Width,
+                    Height = cycloid.Height,
+                    Fill = cycloid.FillBrush,
+                    Stroke = cycloid.StrokeBrush,
+                    StrokeThickness = cycloid.StrokeThickness,
                     RenderTransform = tc.Clone(),
-                    StrokeThickness = cyc.StrokeThickness,
                 });
 
-                angle += angleDifference;
-                tt.X = xOffset - radius + angle * radius;
+                circle.Update();
+                tt.X = circle.X;
 
-                tc.X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset) + angle * radius;
-                tc.Y = yOffset - radiusC + Math.Sin(-angle) * (radius + cyOffset);
+                cycloid.Update();
+                tc.X = cycloid.X;
+                tc.Y = cycloid.Y;
 
-                lajn.X1 = tt.X + radius;
-                lajn.Y1 = tt.Y + radius;
+                lajn.X1 = tt.X + circle.Radius;
+                lajn.Y1 = tt.Y + circle.Radius;
 
-                lajn.X2 = tc.X + radiusC;
-                lajn.Y2 = tc.Y + radiusC;
+                lajn.X2 = tc.X + cycloid.Radius;
+                lajn.Y2 = tc.Y + cycloid.Radius;
             };
             gameTimer.Interval = TimeSpan.FromMilliseconds(2);
             gameTimer.Start();
@@ -133,15 +123,18 @@ namespace WpfApp1
 
         private void ConvertValues()
         {
-            xOffset = Convert.ToInt32(tbX.Text);
-            yOffset = Convert.ToInt32(tbY.Text);
-            radius = Convert.ToDouble(tbRadius.Text);
-            radiusC = Convert.ToDouble(tbRadiusC.Text);
-            angle = Convert.ToDouble(tbAngle.Text);
-            angleDifference = Convert.ToDouble(tbAngleDiff.Text);
-            strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
-            cxOffset = Convert.ToInt32(tbPointX.Text);
-            cyOffset = Convert.ToInt32(tbPointY.Text);
+            double xOffset = Convert.ToInt32(tbX.Text);
+            double yOffset = Convert.ToInt32(tbY.Text);
+            double radius = Convert.ToDouble(tbRadius.Text);
+            double radiusC = Convert.ToDouble(tbRadiusC.Text);
+            double angle = Convert.ToDouble(tbAngle.Text);
+            double angleDifference = Convert.ToDouble(tbAngleDiff.Text);
+            double strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
+            double cxOffset = Convert.ToInt32(tbPointX.Text);
+            double cyOffset = Convert.ToInt32(tbPointY.Text);
+
+            circle = new CycloidCircle(xOffset - radius, yOffset - radius, xOffset, yOffset, radius, angle, angleDifference, strokeThickness, Brushes.DarkMagenta, null, null);
+            cycloid = new CycloidCircle(xOffset - radiusC + Math.Cos(angle) * (radius + Math.Abs(cxOffset)), yOffset - radiusC + Math.Sin(-angle) * (radius + Math.Abs(cyOffset)), cxOffset, cyOffset, radiusC, angle, angleDifference, strokeThickness, Brushes.Red, Brushes.Red, circle);
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
