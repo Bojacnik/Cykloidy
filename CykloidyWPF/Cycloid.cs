@@ -25,7 +25,15 @@ namespace CykloidyWPF
             get; private set;
         }
 
-        public CycloidCircle(double x, double y, double xOffset, double yOffset, double radius, double angle, double angleDifference, double strokeThickness, Brush strokeBrush, Brush? fillBrush, CycloidCircle? parent)
+        public CycloidCircle(
+            double x,
+            double y,
+            double xOffset, double yOffset,
+            double radius,
+            double angle, double angleDifference,
+            double strokeThickness,
+            Brush strokeBrush, Brush? fillBrush,
+            CycloidCircle? parent)
         {
             X = x;
             Y = y;
@@ -49,8 +57,11 @@ namespace CykloidyWPF
             }
             else
             {
-                X = Parent.xOffset - Radius + Math.Cos(Parent.Angle) * (Radius + Math.Abs(xOffset)) + Parent.Angle * Parent.Radius;
-                Y = Parent.yOffset - Radius + Math.Sin(-Parent.Angle) * (Radius + Math.Abs(yOffset));
+                X = Parent.xOffset - Radius
+                    + Math.Cos(Parent.Angle) * (Parent.Radius + Math.Abs(xOffset))
+                    + Parent.Angle * Parent.Radius;
+                Y = Parent.yOffset - Radius
+                    + Math.Sin(-Parent.Angle) * (Parent.Radius + Math.Abs(yOffset));
             }
         }
     }
