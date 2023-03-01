@@ -16,85 +16,30 @@ namespace WpfApp1
         {
             InitializeComponent();
             this.canvas = DrawingCanvas;
+
+            cbType.Items.Add("epicykloidy");
+            cbType.Items.Add("hypocykloidy");
+            var brushProperties = typeof(Brushes).GetProperties();
+            foreach (var brushProperty in brushProperties)
+            {
+                cbColor1.Items.Add(brushProperty.Name);
+                cbColor2.Items.Add(brushProperty.Name);
+                cbColor3.Items.Add(brushProperty.Name);
+                cbFill.Items.Add(brushProperty.Name);
+            }
+            cbColor1.SelectedIndex = 12;
+            cbColor2.SelectedIndex = 27;
+            cbColor3.SelectedIndex = 113;
+            cbFill.SelectedIndex = 113;
         }
 
-        DispatcherTimer? gameTimer;
-        int xOffset, yOffset;
-        double cxOffset, cyOffset;
-        double radius;
-        double radiusC;
-        double angle;
-        double angleDifference;
-        double strokeThickness;
-        double baseRadius;
-        double baseX, baseY;
-        Brush circleColor;
-        Brush cycloidColor;
-
-        TranslateTransform? tbase;
-        TranslateTransform? tt;
-        TranslateTransform? tc;
-        Line? lajn;
-        Ellipse? cyc;
+        DispatcherTimer gameTimer;
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
             ConvertValues();
 
-            tbase = new()
-            {
-                X = baseX - baseRadius,
-                Y = baseY - baseRadius,
-            };
-            Ellipse baseEl = new()
-            {
-                Width = baseRadius * 2,
-                Height = baseRadius * 2,
-                Stroke = Brushes.DarkBlue,
-                RenderTransform = tbase,
-                StrokeThickness = strokeThickness,
-            };
-            canvas.Children.Add(baseEl);
 
-            tt = new()
-            {
-                X = baseX + baseRadius,
-                Y = baseY - baseRadius + radius + strokeThickness,
-            };
-            Ellipse ell = new()
-            {
-                Width = radius * 2,
-                Height = radius * 2,
-                Stroke = Brushes.DarkMagenta,
-                RenderTransform = tt,
-                StrokeThickness = strokeThickness,
-            };
-            canvas.Children.Add(ell);
-            tc = new()
-            {
-                X = tt.X - radiusC + Math.Cos(angle) * (radius + cxOffset),
-                Y = tt.Y + radiusC + Math.Sin(-angle) * (radius + cyOffset),
-            };
-            cyc = new()
-            {
-                Width = radiusC * 2,
-                Height = radiusC * 2,
-                Stroke = Brushes.Red,
-                RenderTransform = tc,
-                StrokeThickness = strokeThickness / 2,
-            };
-            canvas.Children.Add(cyc);
-            lajn = new()
-            {
-                X1 = xOffset,
-                Y1 = yOffset,
 
-                X2 = tc.X + radiusC,
-                Y2 = tc.Y + radiusC,
-
-                Stroke = Brushes.Orange,
-
-            };
-            canvas.Children.Add(lajn);
 
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = true;
@@ -102,38 +47,41 @@ namespace WpfApp1
         }
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {
-            gameTimer = new DispatcherTimer(DispatcherPriority.Render);
-            gameTimer.Tick += (object? sender, EventArgs e) =>
-            {
-                canvas.Children.Add(new Ellipse()
+            /*
+
+                gameTimer = new DispatcherTimer(DispatcherPriority.Render);
+                gameTimer.Tick += (object? sender, EventArgs e) =>
                 {
-                    Width = cyc.Width,
-                    Height = cyc.Height,
-                    Stroke = cyc.Stroke,
-                    Fill = cyc.Fill ?? cyc.Stroke,
-                    RenderTransform = tc.Clone(),
-                    StrokeThickness = cyc.StrokeThickness,
-                });
+                    canvas.Children.Add(new Ellipse()
+                    {
+                        Width = cyc.Width,
+                        Height = cyc.Height,
+                        Stroke = cyc.Stroke,
+                        Fill = cyc.Fill ?? cyc.Stroke,
+                        RenderTransform = tc.Clone(),
+                        StrokeThickness = cyc.StrokeThickness,
+                    });
 
-                angle += angleDifference;
-                tt.X = xOffset - radius + angle * radius;
+                    angle += angleDifference;
+                    tt.X = xOffset - radius + angle * radius;
 
-                tc.X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset) + angle * radius;
-                tc.Y = yOffset - radiusC + Math.Sin(-angle) * (radius + cyOffset);
+                    tc.X = xOffset - radiusC + Math.Cos(angle) * (radius + cxOffset) + angle * radius;
+                    tc.Y = yOffset - radiusC + Math.Sin(-angle) * (radius + cyOffset);
 
-                lajn.X1 = tt.X + radius;
-                lajn.Y1 = tt.Y + radius;
+                    lajn.X1 = tt.X + radius;
+                    lajn.Y1 = tt.Y + radius;
 
-                lajn.X2 = tc.X + radiusC;
-                lajn.Y2 = tc.Y + radiusC;
-            };
-            gameTimer.Interval = TimeSpan.FromMilliseconds(2);
-            gameTimer.Start();
-            btnCreate.IsEnabled = false;
-            btnRun.IsEnabled = false;
-            btnClear.IsEnabled = true;
+                    lajn.X2 = tc.X + radiusC;
+                    lajn.Y2 = tc.Y + radiusC;
+                };
+                gameTimer.Interval = TimeSpan.FromMilliseconds(2);
+                gameTimer.Start();
+                btnCreate.IsEnabled = false;
+                btnRun.IsEnabled = false;
+                btnClear.IsEnabled = true;
+            */
+
         }
-
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             gameTimer?.Stop();
@@ -145,18 +93,18 @@ namespace WpfApp1
 
         private void ConvertValues()
         {
-            xOffset = Convert.ToInt32(tbX.Text);
-            yOffset = Convert.ToInt32(tbY.Text);
-            radius = Convert.ToDouble(tbRadius.Text);
-            radiusC = Convert.ToDouble(tbRadiusC.Text);
-            angle = Convert.ToDouble(tbAngle.Text);
-            angleDifference = Convert.ToDouble(tbAngleDiff.Text);
-            strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
-            cxOffset = Convert.ToInt32(tbPointX.Text);
-            cyOffset = Convert.ToInt32(tbPointY.Text);
-            baseRadius = Convert.ToInt32(tbBaseRadius.Text);
-            baseX = Convert.ToInt32(tbBaseX.Text);
-            baseY = Convert.ToInt32(tbBaseY.Text);
+            double radius1 = Convert.ToInt32(tbRadius1);
+            double radius2 = Convert.ToInt32(tbRadius2);
+            double radius3 = Convert.ToInt32(tbRadius3);
+            double offset = Convert.ToInt32(tbOffset);
+            double angleDiff = Convert.ToInt32(tbAngleDiff);
+            double stroke = Convert.ToInt32(tbStrokeThickness);
+            double angle = 0;
+            BrushConverter bc = new BrushConverter();
+            Brush color1 = (Brush)bc.ConvertFromString(cbColor1.Text);
+            Brush color2 = (Brush)bc.ConvertFromString(cbColor2.Text);
+            Brush color3 = (Brush)bc.ConvertFromString(cbColor2.Text);
+            Brush fill = (Brush)bc.ConvertFromString(cbFill.Text);
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {

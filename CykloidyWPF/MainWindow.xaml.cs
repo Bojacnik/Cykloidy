@@ -17,10 +17,9 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            this.canvas = DrawingCanvas;
 
             var brushProperties = typeof(Brushes).GetProperties();
-
-            // Add the available Brush names to the ComboBox
             foreach (var brushProperty in brushProperties)
             {
                 cbStrokeColor.Items.Add(brushProperty.Name);
@@ -28,7 +27,6 @@ namespace WpfApp1
             }
             cbStrokeColor.SelectedIndex = 27;
             cbCycloidColor.SelectedIndex = 113;
-            this.canvas = DrawingCanvas;
         }
 
         DispatcherTimer? gameTimer;

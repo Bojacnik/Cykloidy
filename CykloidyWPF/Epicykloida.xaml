@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Epicykloida" Height="500" Width="800"
+        Title="Epicykloida" Height="800" Width="1200"
         ResizeMode="NoResize"
         >
 
@@ -33,8 +33,6 @@
                 <RowDefinition Height="1*" MaxHeight="30"/>
                 <RowDefinition Height="1*" MaxHeight="30"/>
                 <RowDefinition Height="1*" MaxHeight="30"/>
-                <RowDefinition Height="1*" MaxHeight="30"/>
-                <RowDefinition Height="1*" MaxHeight="30"/>
                 <RowDefinition Height="1*" MaxHeight="60"/>
                 <RowDefinition Height="1*" MaxHeight="60"/>
             </Grid.RowDefinitions>
@@ -43,36 +41,31 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch">X</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="0" Name="tbX">0</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="1,10,1,1">Y</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="1" Name="tbY">0</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">Radius</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="2" Name="tbRadius">20</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">RadiusC</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="3" Name="tbRadiusC">5</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center">PointX</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="4" Name="tbPointX">50</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center">PointY</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="5" Name="tbPointY">50</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center">Offset</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="6" Name="tbOffset">0</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center">Angle</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="7" Name="tbAngle">0</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="8" HorizontalAlignment="Center">Angle diff</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="8" Name="tbAngleDiff">1</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="9" HorizontalAlignment="Center">Stroke</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="9" Name="tbStrokeThickness">3</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="10" HorizontalAlignment="Center">Path Radius</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="10" Name="tbBaseRadius">3</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="11" HorizontalAlignment="Center">Path X</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="11" Name="tbBaseX">50</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="12" HorizontalAlignment="Center">Path Y</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="12" Name="tbBaseY">50</TextBox>
+            <ComboBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="cbType"></ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">Radius 1</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="tbRadius1">50</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">Radius 2</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="2" Name="tbRadius2">20</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">Radius 3</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="3" Name="tbRadius3">5</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center">Offset</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="4" Name="tbOffset">0</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center">Angle diff</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="5" Name="tbAngleDiff">0,1</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center">Stroke Widtth</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="6" Name="tbStrokeThickness">3</TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center">Stroke 1</TextBlock>
+            <ComboBox Grid.Column="1" Grid.Row="7" Name="cbColor1">3</ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="8" HorizontalAlignment="Center">Stroke 2</TextBlock>
+            <ComboBox Grid.Column="1" Grid.Row="8" Name="cbColor2">3</ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="9" HorizontalAlignment="Center">Stroke 3</TextBlock>
+            <ComboBox Grid.Column="1" Grid.Row="9" Name="cbColor3">3</ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="10" HorizontalAlignment="Center">Fill</TextBlock>
+            <ComboBox Grid.Column="1" Grid.Row="10" Name="cbFill">3</ComboBox>
 
-            <Button Grid.Column="0" Grid.Row="13" Name="btnCreate" Click="btnCreate_onClick" IsEnabled="True">Create</Button>
-            <Button Grid.Column="1" Grid.Row="13" Name="btnRun" Click="btnRun_onClick" IsEnabled="True">Run</Button>
-            <Button Grid.Column="1" Grid.Row="14" Name="btnClear" Click="btnClear_Click" IsEnabled="True">Clear</Button>
+            <Button Grid.Column="0" Grid.Row="11" Name="btnCreate" Click="btnCreate_onClick" IsEnabled="True">Create</Button>
+            <Button Grid.Column="1" Grid.Row="11" Name="btnRun" Click="btnRun_onClick" IsEnabled="True">Run</Button>
+            <Button Grid.Column="1" Grid.Row="12" Name="btnClear" Click="btnClear_Click" IsEnabled="True">Clear</Button>
         </Grid>
 
     </Grid>
