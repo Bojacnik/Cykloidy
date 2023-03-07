@@ -93,12 +93,12 @@ namespace WpfApp1
 
         private void ConvertValues()
         {
-            double radius1 = Convert.ToInt32(tbRadius1);
-            double radius2 = Convert.ToInt32(tbRadius2);
-            double radius3 = Convert.ToInt32(tbRadius3);
-            double offset = Convert.ToInt32(tbOffset);
-            double angleDiff = Convert.ToInt32(tbAngleDiff);
-            double stroke = Convert.ToInt32(tbStrokeThickness);
+            double radius1 = Convert.ToDouble(tbRadius1.Text);
+            double radius2 = Convert.ToDouble(tbRadius2.Text);
+            double radius3 = Convert.ToDouble(tbRadius3.Text);
+            double offset = Convert.ToDouble(tbOffset.Text);
+            double angleDiff = Convert.ToDouble(tbAngleDiff.Text);
+            double stroke = Convert.ToDouble(tbStrokeThickness.Text);
             double angle = 0;
             BrushConverter bc = new BrushConverter();
             Brush color1 = (Brush)bc.ConvertFromString(cbColor1.Text);
