@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CykloidyWPF;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,11 +35,46 @@ namespace WpfApp1
         }
 
         DispatcherTimer gameTimer;
+        CycloidCircle baseCircle;
+        CycloidCircle travellingCircle;
+        CycloidCircle cycloid;
+
+        TranslateTransform bc;
+        TranslateTransform tc;
+        TranslateTransform c;
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
             ConvertValues();
 
+            bc = new()
+            {
+                X = baseCircle.X,
+                Y = baseCircle.Y
+            };
+            Ellipse baseEllipse = new()
+            {
+                Width = baseCircle.Width,
+                Height = baseCircle.Height,
+                Stroke = baseCircle.StrokeBrush,
+                StrokeThickness = baseCircle.StrokeThickness,
+                RenderTransform = bc
+            };
+            canvas.Children.Add(baseEllipse);
 
+            tc = new()
+            {
+                X = travellingCircle.X,
+                Y = travellingCircle.Y,
+            };
+            Ellipse travellingEllipse = new()
+            {
+                Width = travellingCircle.Width,
+                Height = travellingCircle.Height,
+                Stroke = travellingCircle.StrokeBrush,
+                StrokeThickness = travellingCircle.StrokeThickness,
+                RenderTransform = tc
+            };
+            canvas.Children.Add(travellingEllipse);
 
 
             btnCreate.IsEnabled = false;
@@ -105,6 +141,33 @@ namespace WpfApp1
             Brush color2 = (Brush)bc.ConvertFromString(cbColor2.Text);
             Brush color3 = (Brush)bc.ConvertFromString(cbColor2.Text);
             Brush fill = (Brush)bc.ConvertFromString(cbFill.Text);
+
+            baseCircle = new CycloidCircle(
+                (canvas.ActualWidth / 2D) - radius1,
+                (canvas.ActualHeight / 2D) - radius1,
+                0,
+                0,
+                radius1,
+                angle,
+                angleDiff,
+                stroke,
+                color1,
+                null,
+                null
+                );
+            // X and Y depends if epicycloid or hypocycloid
+            travellingCircle = new CycloidCircle(
+                (baseCircle.X + 2*baseCircle.Radius),
+                (baseCircle.Y + baseCircle.Radius - radius2),
+                0,
+                0,
+                radius2,
+                angle,
+                angleDiff,
+                stroke / 2,
+                color2,
+                null,
+                baseCircle);
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
