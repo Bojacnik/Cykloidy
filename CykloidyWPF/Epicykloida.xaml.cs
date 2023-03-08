@@ -76,6 +76,21 @@ namespace WpfApp1
             };
             canvas.Children.Add(travellingEllipse);
 
+            c = new()
+            {
+                X = cycloid.X,
+                Y = cycloid.Y
+            };
+            Ellipse ellipse = new()
+            {
+                Width = cycloid.Width,
+                Height = cycloid.Height,
+                Stroke = cycloid.StrokeBrush,
+                StrokeThickness = cycloid.StrokeThickness,
+                RenderTransform = c
+            };
+            canvas.Children.Add(ellipse);
+
 
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = true;
@@ -83,8 +98,6 @@ namespace WpfApp1
         }
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {
-            /*
-
                 gameTimer = new DispatcherTimer(DispatcherPriority.Render);
                 gameTimer.Tick += (object? sender, EventArgs e) =>
                 {
@@ -139,7 +152,7 @@ namespace WpfApp1
             BrushConverter bc = new BrushConverter();
             Brush color1 = (Brush)bc.ConvertFromString(cbColor1.Text);
             Brush color2 = (Brush)bc.ConvertFromString(cbColor2.Text);
-            Brush color3 = (Brush)bc.ConvertFromString(cbColor2.Text);
+            Brush color3 = (Brush)bc.ConvertFromString(cbColor3.Text);
             Brush fill = (Brush)bc.ConvertFromString(cbFill.Text);
 
             baseCircle = new CycloidCircle(
@@ -157,7 +170,7 @@ namespace WpfApp1
                 );
             // X and Y depends if epicycloid or hypocycloid
             travellingCircle = new CycloidCircle(
-                (baseCircle.X + 2*baseCircle.Radius),
+                (baseCircle.X + baseCircle.Width),
                 (baseCircle.Y + baseCircle.Radius - radius2),
                 0,
                 0,
@@ -168,6 +181,19 @@ namespace WpfApp1
                 color2,
                 null,
                 baseCircle);
+            cycloid = new CycloidCircle(
+                travellingCircle.X + travellingCircle.Width - radius3,
+                travellingCircle.Y + travellingCircle.Radius - radius3,
+                0,
+                0,
+                radius3,
+                angle,
+                angleDiff,
+                stroke / 2,
+                color3,
+                fill,
+                travellingCircle
+                );
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
