@@ -11,10 +11,10 @@ using System.Linq;
 namespace WpfApp1
 {
 
-    public partial class MainWindow : Window
+    public partial class BasicCycloidWindow : Window
     {
         readonly Canvas canvas;
-        public MainWindow()
+        public BasicCycloidWindow()
         {
             InitializeComponent();
             this.canvas = DrawingCanvas;
@@ -30,9 +30,8 @@ namespace WpfApp1
         }
 
         DispatcherTimer? gameTimer;
-
-        CycloidCircle circle;
-        CycloidCircle cycloid;
+        BasicCycloid circle;
+        BasicCycloid cycloid;
 
         TranslateTransform? tt;
         TranslateTransform? tc;
@@ -145,7 +144,7 @@ namespace WpfApp1
             Brush circleStrokeColor = (Brush)bc.ConvertFromString(cbStrokeColor.Text);
             Brush cycloidColor = (Brush)bc.ConvertFromString(cbCycloidColor.Text);
 
-            circle = new CycloidCircle(
+            circle = new BasicCycloid(
                 xOffset - radius,
                 yOffset - radius,
                 xOffset, yOffset,
@@ -154,7 +153,7 @@ namespace WpfApp1
                 strokeThickness,
                 circleStrokeColor, null,
                 null);
-            cycloid = new CycloidCircle(
+            cycloid = new BasicCycloid(
                 xOffset - radiusC + Math.Cos(angle) * (radius + Math.Abs(cycloidOffset)),
                 yOffset - radiusC + Math.Sin(-angle) * (radius + Math.Abs(cycloidOffset)),
                 cycloidOffset, cycloidOffset,
