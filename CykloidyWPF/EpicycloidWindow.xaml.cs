@@ -8,17 +8,24 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Linq;
 
-namespace WpfApp1
+namespace CykloidyWPF
 {
-
-    public partial class PericycloidWindow : Window
+    /// <summary>
+    /// Interaction logic for EpicycloidWindow.xaml
+    /// </summary>
+    public partial class EpicycloidWindow : Window
     {
+        const string EPICYCLOID = "Epicykloida";
+        const string HYPOCYCLOID = "Hypocykloida";
         readonly Canvas canvas;
-        public PericycloidWindow()
+        public EpicycloidWindow()
         {
             InitializeComponent();
             this.canvas = DrawingCanvas;
 
+            cbType.Items.Add(EPICYCLOID);
+            cbType.Items.Add(HYPOCYCLOID);
+            cbType.SelectedIndex = 0;
             var brushProperties = typeof(Brushes).GetProperties();
             foreach (var brushProperty in brushProperties)
             {
@@ -34,9 +41,9 @@ namespace WpfApp1
         }
 
         DispatcherTimer gameTimer;
-        Pericycloid baseCircle;
-        Pericycloid travellingCircle;
-        Pericycloid cycloid;
+        Epicycloid baseCircle;
+        Epicycloid travellingCircle;
+        Epicycloid cycloid;
         Line baseToTravelling;
         Line travellingToCycloid;
 
@@ -124,6 +131,7 @@ namespace WpfApp1
             double radius3 = Convert.ToDouble(tbRadius3.Text);
             double angleDiff1 = Convert.ToDouble(tbAngleDiff1.Text);
             double angleDiff2 = Convert.ToDouble(tbAngleDiff2.Text);
+
             double stroke = Convert.ToDouble(tbStrokeThickness.Text);
             double angle = 0;
             BrushConverter bc = new BrushConverter();
@@ -132,7 +140,10 @@ namespace WpfApp1
             Brush color3 = (Brush)bc.ConvertFromString(cbColor3.Text);
             Brush fill = (Brush)bc.ConvertFromString(cbFill.Text);
 
-            baseCircle = new Pericycloid(
+            string cycloidType = cbType.Text;
+            bool hypocycloid = cycloidType == HYPOCYCLOID;
+
+            baseCircle = new Epicycloid(
                 (canvas.ActualWidth / 2D) - radius1,
                 (canvas.ActualHeight / 2D) - radius1,
                 radius1,
@@ -142,30 +153,31 @@ namespace WpfApp1
                 color1
                 );
             // X and Y depends if epicycloid or hypocycloid
-            travellingCircle = new Pericycloid(
-                0,
-                0,
+            travellingCircle = new Epicycloid(
+                0, // nedůležité (později ho změní RecalculatePosition
+                0, // -||-
                 radius2,
                 angle,
                 angleDiff2,
                 stroke / 2,
                 color2,
-                parent: baseCircle
+                parent: baseCircle,
+                isHypocycloid: hypocycloid
                 );
             travellingCircle.RecalculatePosition();
-            cycloid = new Pericycloid(
+            cycloid = new Epicycloid(
                 0, // nedůležité (později ho změní RecalculatePosition
                 0, // -||-
                 radius3,
-                angle,      // Vzhledem k tomu že nemá další dítě, není třeba
+                0,      // Vzhledem k tomu že nemá další dítě, není třeba
                 0, // -||-
                 stroke / 2,
                 color3,
                 fill,
-                parent: travellingCircle
+                parent: travellingCircle,
+                last: true
                 );
             cycloid.RecalculatePosition();
         }
-
     }
 }

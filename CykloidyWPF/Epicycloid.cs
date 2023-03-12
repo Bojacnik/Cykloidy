@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace CykloidyWPF
 {
-    class Pericycloid
+    internal class Epicycloid
     {
         public double Width => Radius * 2;
         public double Height => Radius * 2;
@@ -21,16 +27,19 @@ namespace CykloidyWPF
         public readonly double StrokeThickness;
         public readonly Brush StrokeBrush;
         public readonly Brush? FillBrush;
-        public Pericycloid? Parent;
-
-        public Pericycloid(
+        public Epicycloid? Parent;
+        public readonly bool Last;
+        public readonly bool IsHypocycloid;
+        public Epicycloid(
             double x,
             double y,
             double radius,
             double angle, double angleDifference,
             double strokeThickness,
             Brush strokeBrush, Brush? fillBrush = null,
-            Pericycloid? parent = null
+            Epicycloid? parent = null,
+            bool last = false,
+            bool isHypocycloid = false
             )
         {
             X = x;
@@ -42,6 +51,8 @@ namespace CykloidyWPF
             StrokeBrush = strokeBrush;
             FillBrush = fillBrush;
             Parent = parent;
+            Last = last;
+            IsHypocycloid = isHypocycloid;
         }
 
         public void Update()
@@ -53,10 +64,31 @@ namespace CykloidyWPF
         public void RecalculatePosition()
         {
             if (Parent == null) { return; }
-            X = Parent.CenterX - Radius
-                + Math.Cos(Parent.Angle) * Parent.Radius;
-            Y = Parent.CenterY - Radius
-                + Math.Sin(-Parent.Angle) * Parent.Radius;
+
+            if (Last)
+            {
+                X = Parent.CenterX - Radius
+                    + Math.Cos(Parent.Angle) * (Parent.Radius);
+                Y = Parent.CenterY - Radius
+                    + Math.Sin(-Parent.Angle) * (Parent.Radius);
+            }
+            else
+            {
+                if (!IsHypocycloid)
+                {
+                    X = Parent.CenterX - Radius
+                        + Math.Cos(Parent.Angle) * (Parent.Radius + Radius);
+                    Y = Parent.CenterY - Radius
+                        + Math.Sin(-Parent.Angle) * (Parent.Radius + Radius);
+                }
+                else
+                {
+                    X = Parent.CenterX - Radius
+                        + Math.Cos(Parent.Angle) * (Parent.Radius - Radius);
+                    Y = Parent.CenterY - Radius
+                        + Math.Sin(-Parent.Angle) * (Parent.Radius - Radius);
+                }
+            }
         }
 
         public Ellipse ToEllipse(out TranslateTransform tt)
@@ -75,6 +107,12 @@ namespace CykloidyWPF
                 Stroke = this.StrokeBrush,
                 Fill = this.FillBrush,
             };
+        }
+
+        enum CycloidType
+        {
+            Epicycloid = 0,
+            Hypocycloid = 1
         }
     }
 }
