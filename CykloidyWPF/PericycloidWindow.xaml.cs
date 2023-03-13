@@ -106,7 +106,15 @@ namespace WpfApp1
             gameTimer.Start();
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = false;
+            btnStop.IsEnabled = true;
             btnClear.IsEnabled = true;
+        }
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            if (gameTimer.IsEnabled)
+                gameTimer?.Stop();
+            else
+                gameTimer?.Start();
         }
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
@@ -114,6 +122,7 @@ namespace WpfApp1
             canvas.Children.Clear();
             btnCreate.IsEnabled = true;
             btnRun.IsEnabled = false;
+            btnStop.IsEnabled = false;
             btnClear.IsEnabled = false;
         }
 

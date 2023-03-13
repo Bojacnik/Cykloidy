@@ -114,6 +114,7 @@ namespace CykloidyWPF
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = false;
             btnClear.IsEnabled = true;
+            btnStop.IsEnabled = true;
         }
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
@@ -122,6 +123,15 @@ namespace CykloidyWPF
             btnCreate.IsEnabled = true;
             btnRun.IsEnabled = false;
             btnClear.IsEnabled = false;
+            btnStop.IsEnabled = false;
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            if (gameTimer.IsEnabled)
+                gameTimer?.Stop();
+            else
+                gameTimer?.Start();
         }
 
         private void ConvertValues()
@@ -179,5 +189,7 @@ namespace CykloidyWPF
                 );
             cycloid.RecalculatePosition();
         }
+
+
     }
 }
