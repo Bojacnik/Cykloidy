@@ -6,7 +6,7 @@ using System.Windows.Shapes;
 
 namespace CykloidyWPF
 {
-    class CycloidCircle
+    class BasicCycloid
     {
         public double Width => Radius * 2;
         public double Height => Radius * 2;
@@ -17,7 +17,7 @@ namespace CykloidyWPF
         public readonly double StrokeThickness;
         public readonly Brush StrokeBrush;
         public readonly Brush? FillBrush;
-        public CycloidCircle? Parent;
+        public BasicCycloid? Parent;
 
         public double X, Y;       // x and y coordinates of point on cycloid
         public double Angle
@@ -25,7 +25,7 @@ namespace CykloidyWPF
             get; private set;
         }
 
-        public CycloidCircle(
+        public BasicCycloid(
             double x,
             double y,
             double xOffset, double yOffset,
@@ -33,7 +33,7 @@ namespace CykloidyWPF
             double angle, double angleDifference,
             double strokeThickness,
             Brush strokeBrush, Brush? fillBrush,
-            CycloidCircle? parent)
+            BasicCycloid? parent)
         {
             X = x;
             Y = y;
