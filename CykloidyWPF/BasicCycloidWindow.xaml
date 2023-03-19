@@ -43,9 +43,9 @@
             <TextBox Grid.Column="1" Grid.Row="0" Name="tbX">50</TextBox>
             <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">Y</TextBlock>
             <TextBox Grid.Column="1" Grid.Row="1" Name="tbY">50</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">Radius</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">Radius 1</TextBlock>
             <TextBox Grid.Column="1" Grid.Row="2" Name="tbRadius">20</TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">RadiusC</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">Radius 2</TextBlock>
             <TextBox Grid.Column="1" Grid.Row="3" Name="tbRadiusC">5</TextBox>
             <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center">Offset</TextBlock>
             <TextBox Grid.Column="1" Grid.Row="4" Name="tbOffset">0</TextBox>

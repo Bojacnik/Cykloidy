@@ -128,52 +128,56 @@ namespace WpfApp1
 
         private void ConvertValues()
         {
-            double radius1 = Convert.ToDouble(tbRadius1.Text);
-            double radius2 = Convert.ToDouble(tbRadius2.Text);
-            double radius3 = Convert.ToDouble(tbRadius3.Text);
-            double angleDiff1 = Convert.ToDouble(tbAngleDiff1.Text);
-            double angleDiff2 = Convert.ToDouble(tbAngleDiff2.Text);
-            double stroke = Convert.ToDouble(tbStrokeThickness.Text);
-            double angle = 0;
-            BrushConverter bc = new BrushConverter();
-            Brush color1 = (Brush)bc.ConvertFromString(cbColor1.Text);
-            Brush color2 = (Brush)bc.ConvertFromString(cbColor2.Text);
-            Brush color3 = (Brush)bc.ConvertFromString(cbColor3.Text);
-            Brush fill = (Brush)bc.ConvertFromString(cbFill.Text);
+            try
+            {
+                double radius1 = Convert.ToDouble(tbRadius1.Text);
+                double radius2 = Convert.ToDouble(tbRadius2.Text);
+                double radius3 = Convert.ToDouble(tbRadius3.Text);
+                double angleDiff1 = Convert.ToDouble(tbAngleDiff1.Text);
+                double angleDiff2 = Convert.ToDouble(tbAngleDiff2.Text);
+                double stroke = Convert.ToDouble(tbStrokeThickness.Text);
+                double angle = 0;
+                BrushConverter bc = new BrushConverter();
+                Brush color1 = (Brush)bc.ConvertFromString(cbColor1.Text);
+                Brush color2 = (Brush)bc.ConvertFromString(cbColor2.Text);
+                Brush color3 = (Brush)bc.ConvertFromString(cbColor3.Text);
+                Brush fill = (Brush)bc.ConvertFromString(cbFill.Text);
 
-            baseCircle = new Pericycloid(
-                (canvas.ActualWidth / 2D) - radius1,
-                (canvas.ActualHeight / 2D) - radius1,
-                radius1,
-                angle,
-                angleDiff1,
-                stroke,
-                color1
-                );
-            // X and Y depends if epicycloid or hypocycloid
-            travellingCircle = new Pericycloid(
-                0,
-                0,
-                radius2,
-                angle,
-                angleDiff2,
-                stroke / 2,
-                color2,
-                parent: baseCircle
-                );
-            travellingCircle.RecalculatePosition();
-            cycloid = new Pericycloid(
-                0, // nedůležité (později ho změní RecalculatePosition
-                0, // -||-
-                radius3,
-                angle,      // Vzhledem k tomu že nemá další dítě, není třeba
-                0, // -||-
-                stroke / 2,
-                color3,
-                fill,
-                parent: travellingCircle
-                );
-            cycloid.RecalculatePosition();
+                baseCircle = new Pericycloid(
+                    (canvas.ActualWidth / 2D) - radius1,
+                    (canvas.ActualHeight / 2D) - radius1,
+                    radius1,
+                    angle,
+                    angleDiff1,
+                    stroke,
+                    color1
+                    );
+                // X and Y depends if epicycloid or hypocycloid
+                travellingCircle = new Pericycloid(
+                    0,
+                    0,
+                    radius2,
+                    angle,
+                    angleDiff2,
+                    stroke / 2,
+                    color2,
+                    parent: baseCircle
+                    );
+                travellingCircle.RecalculatePosition();
+                cycloid = new Pericycloid(
+                    0, // nedůležité (později ho změní RecalculatePosition
+                    0, // -||-
+                    radius3,
+                    angle,      // Vzhledem k tomu že nemá další dítě, není třeba
+                    0, // -||-
+                    stroke / 2,
+                    color3,
+                    fill,
+                    parent: travellingCircle
+                    );
+                cycloid.RecalculatePosition();
+            }
+            catch { return; }
         }
 
     }

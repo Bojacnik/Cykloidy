@@ -57,14 +57,17 @@ namespace CykloidyWPF
 
         public void Update()
         {
+            // Přičti úhel a přepočítej pozici
             Angle += AngleDifference;
             RecalculatePosition();
         }
 
         public void RecalculatePosition()
         {
+            //Jedná se o statickou kružnici
             if (Parent == null) { return; }
 
+            //Jedná se o bod cykloidy
             if (Last)
             {
                 X = Parent.CenterX - Radius
@@ -74,6 +77,7 @@ namespace CykloidyWPF
             }
             else
             {
+                //Jedná se o Epicykloidu
                 if (!IsHypocycloid)
                 {
                     X = Parent.CenterX - Radius
@@ -81,6 +85,7 @@ namespace CykloidyWPF
                     Y = Parent.CenterY - Radius
                         + Math.Sin(-Parent.Angle) * (Parent.Radius + Radius);
                 }
+                //jedná se o Hypocykloidu
                 else
                 {
                     X = Parent.CenterX - Radius

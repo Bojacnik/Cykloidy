@@ -141,36 +141,40 @@ namespace WpfApp1
 
         private void ConvertValues()
         {
-            double xOffset = Convert.ToInt32(tbX.Text);
-            double yOffset = Convert.ToInt32(tbY.Text);
-            double radius = Convert.ToDouble(tbRadius.Text);
-            double radiusC = Convert.ToDouble(tbRadiusC.Text);
-            const double angle = 0;
-            double angleDifference = Convert.ToDouble(tbAngleDiff.Text);
-            double strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
-            double cycloidOffset = Convert.ToDouble(tbOffset.Text);
-            BrushConverter bc = new BrushConverter();
-            Brush circleStrokeColor = (Brush)bc.ConvertFromString(cbStrokeColor.Text);
-            Brush cycloidColor = (Brush)bc.ConvertFromString(cbCycloidColor.Text);
+            try
+            {
+                double xOffset = Convert.ToInt32(tbX.Text);
+                double yOffset = Convert.ToInt32(tbY.Text);
+                double radius = Convert.ToDouble(tbRadius.Text);
+                double radiusC = Convert.ToDouble(tbRadiusC.Text);
+                const double angle = 0;
+                double angleDifference = Convert.ToDouble(tbAngleDiff.Text);
+                double strokeThickness = Convert.ToDouble(tbStrokeThickness.Text);
+                double cycloidOffset = Convert.ToDouble(tbOffset.Text);
+                BrushConverter bc = new BrushConverter();
+                Brush circleStrokeColor = (Brush)bc.ConvertFromString(cbStrokeColor.Text);
+                Brush cycloidColor = (Brush)bc.ConvertFromString(cbCycloidColor.Text);
 
-            circle = new BasicCycloid(
-                xOffset - radius,
-                yOffset - radius,
-                xOffset, yOffset,
-                radius,
-                angle, angleDifference,
-                strokeThickness,
-                circleStrokeColor, null,
-                null);
-            cycloid = new BasicCycloid(
-                xOffset - radiusC + Math.Cos(angle) * (radius + Math.Abs(cycloidOffset)),
-                yOffset - radiusC + Math.Sin(-angle) * (radius + Math.Abs(cycloidOffset)),
-                cycloidOffset, cycloidOffset,
-                radiusC,
-                angle, angleDifference,
-                strokeThickness,
-                cycloidColor, cycloidColor,
-                circle);
+                circle = new BasicCycloid(
+                    xOffset - radius,
+                    yOffset - radius,
+                    xOffset, yOffset,
+                    radius,
+                    angle, angleDifference,
+                    strokeThickness,
+                    circleStrokeColor, null,
+                    null);
+                cycloid = new BasicCycloid(
+                    xOffset - radiusC + Math.Cos(angle) * (radius + Math.Abs(cycloidOffset)),
+                    yOffset - radiusC + Math.Sin(-angle) * (radius + Math.Abs(cycloidOffset)),
+                    cycloidOffset, cycloidOffset,
+                    radiusC,
+                    angle, angleDifference,
+                    strokeThickness,
+                    cycloidColor, cycloidColor,
+                    circle);
+            }
+            catch { return; }
         }
         private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
