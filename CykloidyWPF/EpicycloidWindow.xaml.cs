@@ -40,7 +40,7 @@ namespace CykloidyWPF
             cbFill.SelectedIndex = 113;
         }
 
-        DispatcherTimer gameTimer;
+        DispatcherTimer simulationTimer;
         Epicycloid baseCircle;
         Epicycloid travellingCircle;
         Epicycloid cycloid;
@@ -80,8 +80,8 @@ namespace CykloidyWPF
         }
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {
-            gameTimer = new DispatcherTimer(DispatcherPriority.Render);
-            gameTimer.Tick += (object? sender, EventArgs e) =>
+            simulationTimer = new DispatcherTimer(DispatcherPriority.Render);
+            simulationTimer.Tick += (object? sender, EventArgs e) =>
             {
                 //Zobrazení předešlého bodu cykloidy
                 canvas.Children.Add(cycloid.ToEllipse(out _));
@@ -109,8 +109,8 @@ namespace CykloidyWPF
                 travellingToCycloid.X2 = cycloid.CenterX;
                 travellingToCycloid.Y2 = cycloid.CenterY;
             };
-            gameTimer.Interval = TimeSpan.FromMilliseconds(2);
-            gameTimer.Start();
+            simulationTimer.Interval = TimeSpan.FromMilliseconds(2);
+            simulationTimer.Start();
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = false;
             btnClear.IsEnabled = true;
@@ -118,7 +118,7 @@ namespace CykloidyWPF
         }
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            gameTimer?.Stop();
+            simulationTimer?.Stop();
             canvas.Children.Clear();
             btnCreate.IsEnabled = true;
             btnRun.IsEnabled = false;
@@ -128,10 +128,10 @@ namespace CykloidyWPF
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
-            if (gameTimer.IsEnabled)
-                gameTimer?.Stop();
+            if (simulationTimer.IsEnabled)
+                simulationTimer?.Stop();
             else
-                gameTimer?.Start();
+                simulationTimer?.Start();
         }
 
         private void ConvertValues()

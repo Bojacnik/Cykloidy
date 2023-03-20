@@ -29,7 +29,7 @@ namespace WpfApp1
             cbCycloidColor.SelectedIndex = 113;
         }
 
-        DispatcherTimer? gameTimer;
+        DispatcherTimer? simulationTimer;
         BasicCycloid circle;
         BasicCycloid cycloid;
 
@@ -88,8 +88,8 @@ namespace WpfApp1
         }
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {
-            gameTimer = new DispatcherTimer(DispatcherPriority.Render);
-            gameTimer.Tick += (object? sender, EventArgs e) =>
+            simulationTimer = new DispatcherTimer(DispatcherPriority.Render);
+            simulationTimer.Tick += (object? sender, EventArgs e) =>
             {
                 canvas.Children.Add(new Ellipse()
                 {
@@ -114,8 +114,8 @@ namespace WpfApp1
                 lajn.X2 = tc.X + cycloid.Radius;
                 lajn.Y2 = tc.Y + cycloid.Radius;
             };
-            gameTimer.Interval = TimeSpan.FromMilliseconds(2);
-            gameTimer.Start();
+            simulationTimer.Interval = TimeSpan.FromMilliseconds(2);
+            simulationTimer.Start();
             btnCreate.IsEnabled = false;
             btnRun.IsEnabled = false;
             btnStop.IsEnabled = true;
@@ -124,7 +124,7 @@ namespace WpfApp1
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            gameTimer?.Stop();
+            simulationTimer?.Stop();
             canvas.Children.Clear();
             btnCreate.IsEnabled = true;
             btnRun.IsEnabled = false;
@@ -133,10 +133,10 @@ namespace WpfApp1
         }
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
-            if (gameTimer.IsEnabled)
-                gameTimer?.Stop();
+            if (simulationTimer.IsEnabled)
+                simulationTimer?.Stop();
             else
-                gameTimer?.Start();
+                simulationTimer?.Start();
         }
 
         private void ConvertValues()
