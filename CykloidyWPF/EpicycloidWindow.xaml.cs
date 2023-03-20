@@ -54,29 +54,33 @@ namespace CykloidyWPF
         {
             ConvertValues();
 
-            canvas.Children.Add(baseCircle.ToEllipse(out bc));
-            canvas.Children.Add(travellingCircle.ToEllipse(out tc));
-            canvas.Children.Add(cycloid.ToEllipse(out c));
-            canvas.Children.Add(baseToTravelling = new()
+            try
             {
-                X1 = baseCircle.CenterX,
-                Y1 = baseCircle.CenterY,
-                X2 = travellingCircle.CenterX,
-                Y2 = travellingCircle.CenterY,
-                Stroke = Brushes.Orange
-            });
-            canvas.Children.Add(travellingToCycloid = new()
-            {
-                X1 = travellingCircle.CenterX,
-                Y1 = travellingCircle.CenterY,
-                X2 = cycloid.CenterX,
-                Y2 = cycloid.CenterY,
-                Stroke = Brushes.Orange
-            });
+                canvas.Children.Add(baseCircle.ToEllipse(out bc));
+                canvas.Children.Add(travellingCircle.ToEllipse(out tc));
+                canvas.Children.Add(cycloid.ToEllipse(out c));
+                canvas.Children.Add(baseToTravelling = new()
+                {
+                    X1 = baseCircle.CenterX,
+                    Y1 = baseCircle.CenterY,
+                    X2 = travellingCircle.CenterX,
+                    Y2 = travellingCircle.CenterY,
+                    Stroke = Brushes.Orange
+                });
+                canvas.Children.Add(travellingToCycloid = new()
+                {
+                    X1 = travellingCircle.CenterX,
+                    Y1 = travellingCircle.CenterY,
+                    X2 = cycloid.CenterX,
+                    Y2 = cycloid.CenterY,
+                    Stroke = Brushes.Orange
+                });
 
-            btnCreate.IsEnabled = false;
-            btnRun.IsEnabled = true;
-            btnClear.IsEnabled = true;
+                btnCreate.IsEnabled = false;
+                btnRun.IsEnabled = true;
+                btnClear.IsEnabled = true;
+            }
+            catch { return; }
         }
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {

@@ -39,52 +39,56 @@ namespace WpfApp1
         Ellipse? cyc;
         private void btnCreate_onClick(object sender, RoutedEventArgs e)
         {
-            ConvertValues();
-            tt = new()
+            try
             {
-                X = circle.X,
-                Y = circle.Y,
-            };
-            Ellipse ell = new()
-            {
-                Width = circle.Width,
-                Height = circle.Height,
-                Fill = circle.FillBrush,
-                Stroke = circle.StrokeBrush,
-                StrokeThickness = circle.StrokeThickness,
-                RenderTransform = tt,
-            };
-            canvas.Children.Add(ell);
-            tc = new()
-            {
-                X = cycloid.X,
-                Y = cycloid.Y,
-            };
-            cyc = new()
-            {
-                Width = cycloid.Width,
-                Height = cycloid.Height,
-                Fill = cycloid.FillBrush,
-                Stroke = cycloid.StrokeBrush,
-                StrokeThickness = cycloid.StrokeThickness,
-                RenderTransform = tc,
-            };
-            canvas.Children.Add(cyc);
-            lajn = new()
-            {
-                X1 = circle.xOffset,
-                Y1 = circle.yOffset,
+                ConvertValues();
+                tt = new()
+                {
+                    X = circle.X,
+                    Y = circle.Y,
+                };
+                Ellipse ell = new()
+                {
+                    Width = circle.Width,
+                    Height = circle.Height,
+                    Fill = circle.FillBrush,
+                    Stroke = circle.StrokeBrush,
+                    StrokeThickness = circle.StrokeThickness,
+                    RenderTransform = tt,
+                };
+                canvas.Children.Add(ell);
+                tc = new()
+                {
+                    X = cycloid.X,
+                    Y = cycloid.Y,
+                };
+                cyc = new()
+                {
+                    Width = cycloid.Width,
+                    Height = cycloid.Height,
+                    Fill = cycloid.FillBrush,
+                    Stroke = cycloid.StrokeBrush,
+                    StrokeThickness = cycloid.StrokeThickness,
+                    RenderTransform = tc,
+                };
+                canvas.Children.Add(cyc);
+                lajn = new()
+                {
+                    X1 = circle.xOffset,
+                    Y1 = circle.yOffset,
 
-                X2 = tc.X + cycloid.Radius,
-                Y2 = tc.Y + cycloid.Radius,
+                    X2 = tc.X + cycloid.Radius,
+                    Y2 = tc.Y + cycloid.Radius,
 
-                Stroke = Brushes.Orange,
+                    Stroke = Brushes.Orange,
 
-            };
-            canvas.Children.Add(lajn);
-            btnCreate.IsEnabled = false;
-            btnRun.IsEnabled = true;
-            btnClear.IsEnabled = true;
+                };
+                canvas.Children.Add(lajn);
+                btnCreate.IsEnabled = false;
+                btnRun.IsEnabled = true;
+                btnClear.IsEnabled = true;
+            }
+            catch { return; }
         }
         private void btnRun_onClick(object sender, RoutedEventArgs e)
         {
